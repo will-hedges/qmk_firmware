@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "bear_box",
+    "manufacturer": "chemicalwill",
+    "url": "https://github.com/chemicalwill",
+    "maintainer": "chemicalwill",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x5B0D",
+        "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_stomp_1x2": {
+            "layout": [
+                { "label": "F1", "x": 0, "y": 0 },
+                { "label": "F2", "x": 1, "y": 0 }
+            ]
+        }
+    }
+}
