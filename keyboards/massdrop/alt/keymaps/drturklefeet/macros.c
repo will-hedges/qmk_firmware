@@ -6,11 +6,15 @@ enum alt_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    ARD,
+    BHCC,
+    BLCC,
     COMP,
     COMP_C,
     COMP_P,
     NARR,
     PAP,
+    PAP2,
     PC_XFER
 };
 
@@ -101,13 +105,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+
+        case ARD:
+            if (record->event.pressed) {
+                SEND_STRING("The Ardelyx Medical Information Department (MID) received information from the Ardelyx Assist program regarding a potential adverse event (AE).\n");
+                SEND_STRING("Please refer to the attached source document for additional case information.\n\n");
+                SEND_STRING("No additional information was available at the time of this report.");
+            } else {
+            }
+            break;
+
+        case BHCC:
+            if (record->event.pressed) {
+                SEND_STRING("The Bausch Health Medical Information Department (MID) received information from the Bausch Health Customer Care program (BHCC) regarding a potential adverse event (AE).\n");
+                SEND_STRING("Please refer to the attached source document for additional case information.\n\n");
+                SEND_STRING("No additional information was available at the time of this report.");
+            } else {
+            }
+            break;
+
+        case BLCC:
+            if (record->event.pressed) {
+                SEND_STRING("The Bausch + Lomb Medical Information Department (MID) received information from the Bausch + Lomb Customer Care program (BLCC) regarding a potential adverse event (AE).\n");
+                SEND_STRING("Please refer to the attached source document for additional case information.\n\n");
+                SEND_STRING("No additional information was available at the time of this report.");
+            } else {
+            }
+            break;
+
         case COMP:
             if (record->event.pressed) {
                 SEND_STRING("Was unable to provide the off-label disclaimer to the customer because the customer was not directly contacted.");
             } else {
             }
             break;
-        
+
         case COMP_C:
             if (record->event.pressed) {
                 SEND_STRING("Informed customer that the inquiry is outside of the current labeling for product and flagged inquiry as off-label as per Compliance and referred the customer to their Health Care provider.");
@@ -134,11 +166,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PAP:
             if (record->event.pressed) {
-                SEND_STRING("()CF: customer was triaged to Bausch Health Patient Assistance program for consultation.");
+                SEND_STRING("CF: customer was triaged to Patient Assistance program for consultation.");
             } else {
             }
             break;
-        
+
+        case PAP2:
+            if (record->event.pressed){
+                SEND_STRING("The Bausch Health Medical Information Department (MID) received information from the Bausch Health Patient Assistance Program (PAP) program regarding a potential adverse event (AE).\n");
+                SEND_STRING("Please refer to the attached source document for more information.\n\n");
+                SEND_STRING("Per the agent from  BHPAP:\n\n");
+                SEND_STRING("No additional information was available at the time of this report.");
+            } else {
+            }
+            break;
+
         case PC_XFER:
             if (record->event.pressed) {
                 SEND_STRING("AE Report Filed\n");
