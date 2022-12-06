@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+------+------+------+------+-------------+------+------+------+------+------|
     * | Tab  |   a  |   s  |   f  | f F11|   g  |   h  | j F12|   k  |   l  |   ;  |  '   |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |LSCAPS|   z  |   x  |   c  |   v  |   b  |   n  |m CF12|   ,  |   .  |  Up  |S,Entr|
+    * |LSCAPS|   z  |   x  |   c  |   v  |   b  |   n  |m MKEY|   ,  |   .  |  Up  |S,Entr|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * | Ctrl |GUIMTA| LAlt | F9 FN|LWPGDN|    Space    |RSPGUP|RCtrl | Left | Down |Right |
     * `-----------------------------------------------------------------------------------'
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COE] = LAYOUT_planck_grid(
         ESC_F10, KC_Q,     KC_W,    KC_E,  KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,     KC_S,    KC_D,  F_F11,    KC_G,    KC_H,    J_F12,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        LS_CAPS, KC_Z,     KC_X,    KC_C,  KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   RS_ENTER,
+        LS_CAPS, KC_Z,     KC_X,    KC_C,  KC_V,     KC_B,    KC_N,    M_SF12,   KC_COMM, KC_DOT,  KC_UP,   RS_ENTER,
         KC_LCTL, GUI_META, KC_LALT, F9_FN, LWR_PGDN, KC_SPC,  KC_SPC,  RSE_PGUP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
