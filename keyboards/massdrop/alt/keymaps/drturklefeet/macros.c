@@ -12,6 +12,7 @@ enum alt_keycodes {
     COMP,
     COMP_C,
     COMP_P,
+    ESP,
     NARR,
     PAP,
     PAP2,
@@ -26,8 +27,8 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 };
 
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RSFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -128,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 SEND_STRING("The Bausch + Lomb Medical Information Department (MID) received information from the Bausch + Lomb Customer Care program (BLCC) regarding a potential adverse event (AE).\n");
                 SEND_STRING("Please refer to the attached source document for additional case information.\n\n");
-                SEND_STRING("No additional information was available at the time of this report.");
+                SEND_STRING("No additional information was available at the time of this report.\n");
             } else {
             }
             break;
@@ -154,6 +155,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+        case ESP:
+            if (record->event.pressed) {
+                SEND_STRING("The Esperion Call Center received notification from a pharmacist calling on behalf of the ASPN Pharmacy Support Program.\n");
+                SEND_STRING("The pharmacist shared the following:\n");
+                SEND_STRING("No additional information was available at the time of this report.\n");
+            } else {
+            }
+            break;
+
         case NARR:
             if (record->event.pressed) {
                 SEND_STRING("Please refer to the attached source document for more information.\n");
@@ -173,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PAP2:
             if (record->event.pressed){
-                SEND_STRING("The Bausch Health Medical Information Department (MID) received information from the Bausch Health Patient Assistance Program (PAP) program regarding a potential adverse event (AE).\n");
+                SEND_STRING("The Bausch Health Medical Information Department (MID) received information from the Bausch Health Patient Assistance Program (PAP) regarding a potential adverse event (AE).\n");
                 SEND_STRING("Please refer to the attached source document for more information.\n\n");
                 SEND_STRING("Per the agent from  BHPAP:\n\n");
                 SEND_STRING("No additional information was available at the time of this report.");
@@ -183,7 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case PC_XFER:
             if (record->event.pressed) {
-                SEND_STRING("AE Report Filed\n");
                 SEND_STRING("()CF: PC forwarded to Customer care for filing.");
             } else {
             }

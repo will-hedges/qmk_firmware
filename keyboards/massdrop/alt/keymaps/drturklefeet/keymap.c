@@ -22,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN1] = LAYOUT_65_ansi_blocker(
         KC_GRV,   KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,  KC_F12,  _______, KC_MUTE, \
-        _______,  RGB_SPD,   RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, KC_PSCR,  KC_SLCK, KC_PAUS, _______, KC_END,  \
+        _______,  RGB_SPD,   RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, KC_PSCR,  KC_SCRL, KC_PAUS, _______, KC_END,  \
         _______,  RGB_RMOD,  RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______,  _______,          _______, KC_VOLU, \
         _______,  RGB_TOG,   _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG,  _______,  _______, _______,  _______,          KC_PGUP, KC_VOLD, \
-        _______, _______,    RESET,                              _______,                              _______,  _______, KC_HOME, KC_PGDN, KC_END   \
+        _______, _______,    QK_BOOT,                              _______,                            _______,  _______, KC_HOME, KC_PGDN, KC_END   \
     ),
     [_META] = LAYOUT_65_ansi_blocker(
         _______,  _______,   _______, _______, _______, _______, _______, _______,  _______,  _______, _______,  _______, _______, _______, ARD,     \
-        _______,  _______,   _______, _______, PAP,     _______, _______, COMP_P,   COMP,     COMP_C,  PC_XFER,  _______, _______, _______, BHCC,    \
+        _______,  _______,   _______, ESP,     PAP,     _______, _______, COMP_P,   COMP,     COMP_C,  PC_XFER,  _______, _______, _______, BHCC,    \
         _______,  NARR,      _______, _______, _______, _______, _______, _______,  _______,  _______, _______,  _______,          _______, PAP2,    \
         _______,  _______,   _______, _______, _______, _______, _______, _______,  _______,  _______, _______,  _______,          _______, BLCC,    \
         _______,  _______,   _______,                            _______,                              _______,  _______, _______, _______, _______  \
