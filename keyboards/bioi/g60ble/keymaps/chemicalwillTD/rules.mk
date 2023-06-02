@@ -3,5 +3,5 @@ BACKLIGHT_ENABLE = no
 MOUSEKEY_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-# features I want to add
+# features I want to add + use
 TAP_DANCE_ENABLE = yes
