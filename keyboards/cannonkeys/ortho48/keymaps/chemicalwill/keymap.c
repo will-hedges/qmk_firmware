@@ -1,175 +1,305 @@
+/* Copyright 2023 Will Hedges (@will-hedges)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 #include QMK_KEYBOARD_H
 
 enum layers {
     _WORK,
-    _QWERTY,
-    _LOWER,
-    _RAISE,
+    _QWER,
+    _LWR,
+    _RSE,
     _FN,
-    _META,
-    _CODE
+    _META
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define FN MO(_FN)
-#define META MO(_META)
-#define CODE MO(_CODE)
-#define FN_F5 LT(_FN, KC_F5)
-#define OSLCODE OSL(_CODE)
-#define TG_META TG(_META)
+enum custom_keycodes {
+    BASE_QWER = SAFE_RANGE,
+    BASE_WORK,
+    ENT_TGMETA
+};
 
+// tap dance enum
+enum {
+    I_F8,
+    Q_F10,
+    F_F11,
+    J_F12,
+    G_END,
+    H_HOME,
+    MINS_SLSH,
+    PLUS_ASTR
+};
+
+// mod-taps
 #define LS_CAPS LSFT_T(KC_CAPS)
-#define RS_ENTER RSFT_T(KC_ENTER)
+#define RS_ENT RSFT_T(KC_ENT)
 
-#include "work_macros.c"
-#include "work_tap_dances.c"
-#include "encoder.c"
+// layer-taps
+#define FN_F9 LT(_FN, KC_F9)
+#define RSE_PGUP LT(_RSE, KC_PGUP)
+#define LWR_PGDN LT(_LWR, KC_PGDN)
+#define WK_META LT(_META, KC_LGUI)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    /* WORK
-    * ,-----------------------------------------------------------------------------------.
-    * | MUTE |Q uvom|W altW|E altE|R dcdc|T altT|   Y  |U altU|   I  |O altO|P labl| Bksp |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Tab  |A altA|S altS| D TD |F fent|   G  |H prod|   J  |   K  |   L  |   ;  |   "  |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |LsCaps|   Z  |X cmnt|   C  |V prof|   B  |N altN|M altM|   ,  |   .  |  Up  |RsEntr|
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | Ctrl |WkMeta| LAlt |1SCODE| Lower|    Space    | Raise| Fn F5| Left | Down | Right|
-    * `-----------------------------------------------------------------------------------'
-    */
     [_WORK] = LAYOUT_ortho_4x12(
-        KC_MUTE, Q_UVOM,  W_ALTW,  E_ALTE,   R_REHABDC, T_ALTT,  KC_Y,     U_ALTU,  KC_I,    O_ALTO,  P_0LABL, KC_BSPC,
-        KC_TAB,  A_ALTA,  S_ALTS,  D_MACROS, F_FENT,    KC_G,    H_HMPROD, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        LS_CAPS, KC_Z,    X_COMMS, KC_C,     V_PROF,    KC_B,    N_NOTSIG, M_ALTM,  KC_COMM, KC_DOT,  KC_UP,   RS_ENTER,
-        KC_LCTL, WK_META, KC_LALT, OSLCODE,  LOWER,     KC_SPC,  KC_SPC,   RAISE,   FN_F5,   KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE, TD(Q_F10), KC_W,    KC_E,  KC_R,      KC_T,      KC_Y,       KC_U,      TD(I_F8), KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,      KC_S,    KC_D,  TD(F_F11), TD(G_END), TD(H_HOME), TD(J_F12), KC_K,     KC_L,    KC_SCLN, KC_QUOT,
+        LS_CAPS, KC_Z,      KC_X,    KC_C,  KC_V,      KC_B,      KC_N,       KC_M,      KC_COMM,  KC_DOT,  KC_UP,   RS_ENT,
+        KC_LCTL, WK_META,   KC_LALT, FN_F9, LWR_PGDN,  KC_SPC,    KC_SPC,     RSE_PGUP,  KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    /* QWERTY
-    * ,-----------------------------------------------------------------------------------.
-    * | MUTE |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "  |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |LsCaps|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |RsEntr|
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | Ctrl |WkMeta| LAlt | Code | Lower|    Space    | Raise|  Fn  | Left | Down |Right |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_QWERTY] = LAYOUT_ortho_4x12(
-        KC_MUTE, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        LS_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_UP,   RS_ENTER,
-        KC_LCTL, WK_META, KC_LALT, CODE,    LOWER,   KC_SPC,  KC_SPC,  RAISE,  FN,      KC_LEFT, KC_DOWN, KC_RGHT
+    [_QWER] = LAYOUT_ortho_4x12(
+        KC_MUTE, KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G,    KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        LS_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   RS_ENT,
+        KC_LCTL, WK_META, KC_LALT, MO(_FN), MO(_LWR), KC_SPC,  KC_SPC,  MO(_RSE), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    /* LOWER
-    * ,-----------------------------------------------------------------------------------.
-    * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Del  |   `  |      |      |      |      |      |   -  |   =  |   [  |   ]  |   \  |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |   /  |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_LOWER] = LAYOUT_ortho_4x12(
-        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_DEL,  KC_GRV,  _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, _______, KC_SLSH, _______,
+    [_LWR] = LAYOUT_ortho_4x12(
+        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
+        KC_ESC,  KC_GRV,  _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-    /* RAISE
-    * ,-----------------------------------------------------------------------------------.
-    * |      |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Del  |   ~  |      |      |      |      |      |   _  |   +  |   {  |   }  |   |  |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |   ?  |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_RAISE] = LAYOUT_ortho_4x12(
-        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-        KC_DEL,  KC_TILD, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_QUES, _______, KC_QUES, _______,
+    [_RSE] = LAYOUT_ortho_4x12(
+        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+        KC_ESC,  KC_TILD, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_QUES, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-    /* FN
-    * ,-----------------------------------------------------------------------------------.
-    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |      |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Esc  |  F11 |  F12 |      |      |      |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      | PgUp |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |BASEQW|             |BASETD|      | Home | PgDn | End  |
-    * `-----------------------------------------------------------------------------------'
-    */
     [_FN] = LAYOUT_ortho_4x12(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
         KC_ESC,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
-        _______, _______, _______, _______, BASE_QW, _______, _______, BASE_TD, _______, KC_HOME, KC_PGDN, KC_END
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
     ),
 
-    /* META
-    * ,-----------------------------------------------------------------------------------.
-    * |      |      |      |      |      |   7  |   8  |   9  |  - / |      |      | Bksp |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | Tab  |      |      |      |      |   4  |   5  |   6  |  + * |      |      | Del  |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |   1  |   2  |   3  | Enter|      |  Up  |ENTTGM|
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |TGMETA|      |      |      |      0      |   .  | Enter| Left | Down | Right|
-    * `-----------------------------------------------------------------------------------'
-    */
     [_META] = LAYOUT_ortho_4x12(
-        _______, _______, _______, _______, _______, KC_7,   KC_8,   KC_9,   MINS_SLSH, _______, _______, KC_BSPC,
-        KC_TAB,  _______, _______, _______, _______, KC_4,   KC_5,   KC_6,   PLUS_ASTR, _______, _______, KC_DEL,
-        _______, _______, _______, _______, _______, KC_1,   KC_2,   KC_3,   KC_ENTER,  _______, KC_UP,   ENTTGM,
-        _______, TG_META, _______, _______, _______, KC_0,   KC_0,   KC_DOT, KC_ENTER,  KC_LEFT, KC_DOWN, KC_RIGHT
+        _______, _______,   _______, _______, _______, KC_7,   KC_8,   KC_9,   MINS_SLSH, _______, _______, KC_BSPC,
+        KC_TAB,  _______,   _______, _______, _______, KC_4,   KC_5,   KC_6,   PLUS_ASTR, _______, _______, KC_DEL,
+        _______, _______,   _______, _______, _______, KC_1,   KC_2,   KC_3,   KC_ENT,    _______, KC_UP,   ENT_TGMETA,
+        _______, TG(_META), _______, _______, _______, KC_0,   KC_0,   KC_DOT, KC_ENT,    KC_LEFT, KC_DOWN, KC_RGHT
     ),
+};
 
-    /* CODE
-    * ,-----------------------------------------------------------------------------------.
-    * |      |      |      | EMAIL|RESCUE|TROUGH|      |      |      | OTHER|PROPHY|      |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |BNDRYL|      | MNL  |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_CODE] = LAYOUT_ortho_4x12(
-        _______, _______, _______, EMAIL,   RESCUE,  TROUGH,  _______, _______, _______, OTHER,   PROPHY,  _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, ZOFRAN,  _______, _______, _______, BNDRYL,  _______, MNL,     _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
 
-    /* BLANK
-    * ,-----------------------------------------------------------------------------------.
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |      |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |      |      |      |      |             |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    /*[_BLANK] = LAYOUT_ortho_4x12(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-    */
+// tap dance tap vs. hold docs @ https://docs.qmk.fm/#/feature_tap_dance?id=example-3
+//  macros are also used with process_record_user @ https://docs.qmk.fm/#/feature_macros?id=using-macros-in-c-keymaps
+typedef struct {
+    uint16_t tap;
+    uint16_t hold;
+    uint16_t held;
+} tap_dance_tap_hold_t;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    tap_dance_action_t *action;
+
+    switch (keycode) {
+        // MACROS
+        case BASE_QWER:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWER);
+            }
+            break;
+
+        case BASE_WORK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WORK);
+            }
+            break;
+
+        case ENT_TGMETA:
+            if (record->event.pressed) {
+                tap_code(KC_ENTER);
+                layer_invert(_META);
+            } else {
+            }
+            break;
+
+        // TAP DANCES
+        case TD(I_F8):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(Q_F10):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(F_F11):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(J_F12):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(G_END):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(H_HOME):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(MINS_SLSH):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(PLUS_ASTR):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+        }
+    return true;
+}
+
+void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (state->pressed) {
+        if (state->count == 1
+#ifndef PERMISSIVE_HOLD
+            && !state->interrupted
+#endif
+        ) {
+            register_code16(tap_hold->hold);
+            tap_hold->held = tap_hold->hold;
+        } else {
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
+        }
+    }
+}
+
+void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (tap_hold->held) {
+        unregister_code16(tap_hold->held);
+        tap_hold->held = 0;
+    }
+}
+
+#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
+    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+
+tap_dance_action_t tap_dance_actions[] = {
+    [I_F8] = ACTION_TAP_DANCE_TAP_HOLD(KC_I, KC_F8),
+    [Q_F10] = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_F10),
+    [F_F11] = ACTION_TAP_DANCE_TAP_HOLD(KC_F, KC_F11),
+    [J_F12] = ACTION_TAP_DANCE_TAP_HOLD(KC_J, KC_F12),
+    [G_END] = ACTION_TAP_DANCE_TAP_HOLD(KC_G, KC_END),
+    [H_HOME] = ACTION_TAP_DANCE_TAP_HOLD(KC_H, KC_HOME),
+    [MINS_SLSH] = ACTION_TAP_DANCE_TAP_HOLD(KC_MINS, KC_SLSH),
+    [PLUS_ASTR] = ACTION_TAP_DANCE_TAP_HOLD(KC_PLUS, KC_ASTR)
+};
+
+
+// ROTARY ENCODER
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+
+    switch(get_highest_layer(layer_state | default_layer_state)) {
+
+        case _WORK:
+            if (clockwise) {
+                    if (!is_alt_tab_active) {
+                        is_alt_tab_active = true;
+                        register_code(KC_LALT);
+                    }
+                    alt_tab_timer = timer_read();
+                    tap_code(KC_TAB);
+            } else {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                tap_code16(S(KC_TAB));
+            }
+            if (is_alt_tab_active) { // check the time elapsed
+                if (timer_elapsed(alt_tab_timer) > 750) {
+                    unregister_code(KC_LALT);
+                    is_alt_tab_active = false;
+                }
+            }
+            break;
+
+        case _RSE:
+            if (clockwise) {
+                tap_code16(C(KC_TAB));
+            } else {
+                tap_code16(C(S(KC_TAB)));
+            }
+            break;
+
+        default:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
+    }
+    return false;
+};
+
+// timer function
+void matrix_scan_user(void) {
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 750) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
+    }
 };
