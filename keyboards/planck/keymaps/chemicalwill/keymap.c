@@ -43,6 +43,8 @@ enum {
     PLUS_ASTR
 };
 
+#define CTLALTDEL C(A(KC_DEL))
+
 // mod-taps
 #define LS_CAPS LSFT_T(KC_CAPS)
 #define RS_ENT RSFT_T(KC_ENT)
@@ -85,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN] = LAYOUT_planck_grid(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-        _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
-        _______, RESET,   _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
+        CTLALTDEL, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
+        _______,   KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
+        _______,   RESET,   _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
     ),
 
     [_META] = LAYOUT_planck_grid(
