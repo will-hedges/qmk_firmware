@@ -20,8 +20,8 @@
 enum layers {
     _WORK,
     _QWER,
-    _LWR,
-    _RSE,
+    _LOWER,
+    _RAISE,
     _FN,
     _META
 };
@@ -50,52 +50,52 @@ enum {
 
 // layer-taps
 #define FN_F9 LT(_FN, KC_F9)
-#define RSE_PGUP LT(_RSE, KC_PGUP)
-#define LWR_PGDN LT(_LWR, KC_PGDN)
-#define WK_META LT(_META, KC_LGUI)
+#define RAISE_PGUP LT(_RAISE, KC_PGUP)
+#define LOWER_PGDN LT(_LOWER, KC_PGDN)
+#define GUI_META LT(_META, KC_LGUI)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORK] = LAYOUT_ortho_4x12(
-        KC_MUTE, TD(Q_F10), KC_W,    KC_E,  KC_R,      KC_T,      KC_Y,       KC_U,      TD(I_F8), KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,  KC_A,      KC_S,    KC_D,  TD(F_F11), TD(G_END), TD(H_HOME), TD(J_F12), KC_K,     KC_L,    KC_SCLN, KC_QUOT,
-        LS_CAPS, KC_Z,      KC_X,    KC_C,  KC_V,      KC_B,      KC_N,       KC_M,      KC_COMM,  KC_DOT,  KC_UP,   RS_ENT,
-        KC_LCTL, WK_META,   KC_LALT, FN_F9, LWR_PGDN,  KC_SPC,    KC_SPC,     RSE_PGUP,  KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE, TD(Q_F10), KC_W,    KC_E,  KC_R,       KC_T,      KC_Y,       KC_U,       TD(I_F8), KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,      KC_S,    KC_D,  TD(F_F11),  TD(G_END), TD(H_HOME), TD(J_F12),  KC_K,     KC_L,    KC_SCLN, KC_QUOT,
+        LS_CAPS, KC_Z,      KC_X,    KC_C,  KC_V,       KC_B,      KC_N,       KC_M,       KC_COMM,  KC_DOT,  KC_UP,   RS_ENT,
+        KC_LCTL, GUI_META,  KC_LALT, FN_F9, LOWER_PGDN, KC_SPC,    KC_SPC,     RAISE_PGUP, KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [_QWER] = LAYOUT_ortho_4x12(
-        KC_MUTE, KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,     KC_G,    KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        LS_CAPS, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_UP,   RS_ENT,
-        KC_LCTL, WK_META, KC_LALT, MO(_FN), MO(_LWR), KC_SPC,  KC_SPC,  MO(_RSE), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE, KC_Q,     KC_W,    KC_E,    KC_R,       KC_T,    KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,     KC_S,    KC_D,    KC_F,       KC_G,    KC_H,    KC_J,       KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        LS_CAPS, KC_Z,     KC_X,    KC_C,    KC_V,       KC_B,    KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_UP,   RS_ENT,
+        KC_LCTL, GUI_META, KC_LALT, MO(_FN), MO(_LOWER), KC_SPC,  KC_SPC,  MO(_RAISE), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_LWR] = LAYOUT_ortho_4x12(
+    [_LOWER] = LAYOUT_ortho_4x12(
         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
         KC_ESC,  KC_GRV,  _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-    [_RSE] = LAYOUT_ortho_4x12(
+    [_RAISE] = LAYOUT_ortho_4x12(
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-        KC_ESC,  KC_TILD, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+        _______, KC_TILD, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_QUES, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_FN] = LAYOUT_ortho_4x12(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-        KC_ESC,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
+        _______, RESET,   _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
     ),
 
     [_META] = LAYOUT_ortho_4x12(
-        _______, _______,   _______, _______, _______, KC_7,   KC_8,   KC_9,   MINS_SLSH, _______, _______, KC_BSPC,
-        KC_TAB,  _______,   _______, _______, _______, KC_4,   KC_5,   KC_6,   PLUS_ASTR, _______, _______, KC_DEL,
-        _______, _______,   _______, _______, _______, KC_1,   KC_2,   KC_3,   KC_ENT,    _______, KC_UP,   ENT_TGMETA,
-        _______, TG(_META), _______, _______, _______, KC_0,   KC_0,   KC_DOT, KC_ENT,    KC_LEFT, KC_DOWN, KC_RGHT
+        _______,   _______,   _______,   _______, _______, KC_7,   KC_8,   KC_9,   TD(MINS_SLSH), _______, _______, KC_BSPC,
+        KC_TAB,    _______,   _______,   _______, _______, KC_4,   KC_5,   KC_6,   TD(PLUS_ASTR), _______, _______, KC_DEL,
+        _______,   _______,   _______,   _______, _______, KC_1,   KC_2,   KC_3,   KC_ENT,        _______, KC_UP,   ENT_TGMETA,
+        BASE_QWER, TG(_META), BASE_WORK, _______, _______, KC_0,   KC_0,   KC_DOT, KC_ENT,        KC_LEFT, KC_DOWN, KC_RGHT
     ),
 };
 
@@ -275,7 +275,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
 
-        case _RSE:
+        case _RAISE:
             if (clockwise) {
                 tap_code16(C(KC_TAB));
             } else {
