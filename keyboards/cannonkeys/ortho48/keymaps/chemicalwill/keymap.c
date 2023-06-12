@@ -100,12 +100,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+// TAPPING_TERM_PER_KEY docs @ https://docs.qmk.fm/#/tap_hold?id=tapping-term
+//  I like shorter for layer + mod taps
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SFT_T(KC_SPC):
-            return TAPPING_TERM + 1250;
-        case LT(1, KC_GRV):
-            return 130;
+        case LS_CAPS: case RS_ENT: case FN_F9: case LOWER_PGDN: case RAISE_PGUP: case GUI_META:
+            return 150;
         default:
             return TAPPING_TERM;
     }
