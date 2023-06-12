@@ -100,6 +100,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_SPC):
+            return TAPPING_TERM + 1250;
+        case LT(1, KC_GRV):
+            return 130;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+
 // tap dance tap vs. hold docs @ https://docs.qmk.fm/#/feature_tap_dance?id=example-3
 //  macros are also used with process_record_user @ https://docs.qmk.fm/#/feature_macros?id=using-macros-in-c-keymaps
 typedef struct {

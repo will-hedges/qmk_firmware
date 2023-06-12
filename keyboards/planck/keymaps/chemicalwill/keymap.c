@@ -1,8 +1,24 @@
+/* Copyright 2023 Will Hedges (@will-hedges)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWER,
     _WORK,
+    _QWER,
     _LOWER,
     _RAISE,
     _FN,
@@ -33,8 +49,8 @@ enum {
 
 // layer-taps
 #define FN_F9 LT(_FN, KC_F9)
-#define RAISE_PGUP LT(_RAISE, KC_PGUP)
 #define LOWER_PGDN LT(_LOWER, KC_PGDN)
+#define RAISE_PGUP LT(_RAISE, KC_PGUP)
 #define GUI_META LT(_META, KC_LGUI)
 
 
@@ -92,6 +108,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     */
 };
+
+
+// TAPPING_TERM_PER_KEY docs @ https://docs.qmk.fm/#/tap_hold?id=tapping-term
+//  I like shorter for layer + mod taps
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LS_CAPS: case RS_ENT: case FN_F9: case LOWER_PGDN: case RAISE_PGUP: case GUI_META:
+            return 150;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 
 // tap dance tap vs. hold docs @ https://docs.qmk.fm/#/feature_tap_dance?id=example-3
