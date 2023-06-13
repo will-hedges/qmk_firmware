@@ -101,6 +101,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+bool led_update_user(led_t led_state) {
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        caps_state = led_state.caps_lock;
+    }
+    return true;
+}
 
 // TAPPING_TERM_PER_KEY docs @ https://docs.qmk.fm/#/tap_hold?id=tapping-term
 //  I like shorter for layer + mod taps
@@ -126,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
 
     switch (keycode) {
-        // MACROS
+
         case BASE_QWER:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWER);
