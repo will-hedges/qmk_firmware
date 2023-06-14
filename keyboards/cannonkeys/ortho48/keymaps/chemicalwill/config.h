@@ -18,9 +18,6 @@
 // repurpose the backlight pin for caps lock indicator
 #define LED_CAPS_LOCK_PIN A8
 
-#define TAPPING_TERM 250
-#define TAPPING_TERM_PER_KEY
-
 #define ENCODERS_PAD_A { A9 }
 #define ENCODERS_PAD_B { A10 }
 
@@ -29,3 +26,5 @@
 
 // see PR #6907, short delay helps with media key tap_codes from encoders
 #define TAP_CODE_DELAY 10
+
+#define HOLD_ON_OTHER_KEY_PRESS
