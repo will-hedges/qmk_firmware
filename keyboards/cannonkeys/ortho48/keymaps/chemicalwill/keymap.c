@@ -47,25 +47,25 @@ enum {
 #define CTLALTDEL C(A(KC_DEL))
 
 // layer-taps
-#define FN_F9 LT(_FN, KC_F9)
-#define RAISE_PGUP LT(_RAISE, KC_PGUP)
 #define LOWER_PGDN LT(_LOWER, KC_PGDN)
+#define RAISE_PGUP LT(_RAISE, KC_PGUP)
+#define FN_F9 LT(_FN, KC_F9)
 #define GUI_META LT(_META, KC_LGUI)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORK] = LAYOUT_ortho_4x12(
-        KC_MUTE,         TD(Q_F10), KC_W,    KC_E,  KC_R,       KC_T,      KC_Y,       KC_U,       TD(I_F8), KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,          KC_A,      KC_S,    KC_D,  TD(F_F11),  TD(G_END), TD(H_HOME), TD(J_F12),  KC_K,     KC_L,    KC_SCLN, KC_QUOT,
-        LSFT_T(KC_CAPS), KC_Z,      KC_X,    KC_C,  KC_V,       KC_B,      KC_N,       KC_M,       KC_COMM,  KC_DOT,  KC_UP,   RSFT_T(KC_ENT),
-        KC_LCTL,         GUI_META,  KC_LALT, FN_F9, LOWER_PGDN, KC_SPC,    KC_SPC,     RAISE_PGUP, KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE,         TD(Q_F10), KC_W,    KC_E,  KC_R,       KC_T,      KC_Y,       KC_U,       TD(I_F8),       KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,          KC_A,      KC_S,    KC_D,  TD(F_F11),  TD(G_END), TD(H_HOME), TD(J_F12),  KC_K,           KC_L,    KC_SCLN, KC_QUOT,
+        LSFT_T(KC_CAPS), KC_Z,      KC_X,    KC_C,  KC_V,       KC_B,      KC_N,       KC_M,       KC_COMM,        KC_DOT,  KC_UP,   RSFT_T(KC_ENT),
+        KC_LCTL,         GUI_META,  KC_LALT, FN_F9, LOWER_PGDN, KC_SPC,    KC_SPC,     RAISE_PGUP, GUI_T(KC_RCTL), KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [_QWER] = LAYOUT_ortho_4x12(
-        KC_MUTE,         KC_Q,     KC_W,    KC_E,    KC_R,       KC_T,    KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,          KC_A,     KC_S,    KC_D,    KC_F,       KC_G,    KC_H,    KC_J,       KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        LSFT_T(KC_CAPS), KC_Z,     KC_X,    KC_C,    KC_V,       KC_B,    KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_UP,   RSFT_T(KC_ENT),
-        KC_LCTL,         GUI_META, KC_LALT, MO(_FN), MO(_LOWER), KC_SPC,  KC_SPC,  MO(_RAISE), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE,         KC_Q,     KC_W,    KC_E,    KC_R,       KC_T,    KC_Y,    KC_U,       KC_I,           KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,          KC_A,     KC_S,    KC_D,    KC_F,       KC_G,    KC_H,    KC_J,       KC_K,           KC_L,    KC_SCLN, KC_QUOT,
+        LSFT_T(KC_CAPS), KC_Z,     KC_X,    KC_C,    KC_V,       KC_B,    KC_N,    KC_M,       KC_COMM,        KC_DOT,  KC_UP,   RSFT_T(KC_ENT),
+        KC_LCTL,         GUI_META, KC_LALT, MO(_FN), MO(_LOWER), KC_SPC,  KC_SPC,  MO(_RAISE), GUI_T(KC_RCTL), KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [_LOWER] = LAYOUT_ortho_4x12(
