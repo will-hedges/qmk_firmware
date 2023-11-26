@@ -105,14 +105,8 @@ void spotify_left_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code16(KC_MPRV);
             break;
-        case TD_DOUBLE_TAP:
-            layer_move(_YOUTUBE);
-            break;
         case TD_DOUBLE_HOLD:
-            register_code(KC_VOLD);
-            break;
-        case TD_TRIPLE_HOLD:
-            reset_keyboard();
+            layer_move(_YOUTUBE);
             break;
         default:
             break;
@@ -120,9 +114,6 @@ void spotify_left_finished(tap_dance_state_t *state, void *user_data) {
 }
 void spotify_left_reset(tap_dance_state_t *state, void *user_data) {
     switch (spotify_lefttap_state.state) {
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_VOLD);
-            break;
         default:
             break;
     }
@@ -143,11 +134,11 @@ void spotify_right_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code(KC_MNXT);
             break;
-        case TD_DOUBLE_TAP:
+        case TD_DOUBLE_HOLD:
             layer_move(_UGPRO);
             break;
-        case TD_DOUBLE_HOLD:
-            register_code(KC_VOLU);
+        case TD_TRIPLE_HOLD:
+            reset_keyboard();
             break;
         default:
             break;
@@ -155,9 +146,6 @@ void spotify_right_finished(tap_dance_state_t *state, void *user_data) {
 }
 void spotify_right_reset(tap_dance_state_t *state, void *user_data) {
     switch (spotify_righttap_state.state) {
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_VOLU);
-            break;
         default:
             break;
     }
@@ -178,11 +166,8 @@ void ugpro_left_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code(KC_BSPC);
             break;
-        case TD_DOUBLE_TAP:
-            layer_move(_SPOTIFY);
-            break;
         case TD_DOUBLE_HOLD:
-            unregister_code(KC_VOLD);
+            layer_move(_SPOTIFY);
             break;
         default:
             break;
@@ -190,9 +175,6 @@ void ugpro_left_finished(tap_dance_state_t *state, void *user_data) {
 }
 void ugpro_left_reset(tap_dance_state_t *state, void *user_data) {
     switch (ugpro_lefttap_state.state) {
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_VOLD);
-            break;
         default:
             break;
     }
@@ -213,11 +195,8 @@ void ugpro_right_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code(KC_L);
             break;
-        case TD_DOUBLE_TAP:
-            layer_move(_YOUTUBE);
-            break;
         case TD_DOUBLE_HOLD:
-            register_code(KC_VOLU);
+            layer_move(_YOUTUBE);
             break;
         default:
             break;
@@ -225,9 +204,6 @@ void ugpro_right_finished(tap_dance_state_t *state, void *user_data) {
 }
 void ugpro_right_reset(tap_dance_state_t *state, void *user_data) {
     switch (ugpro_righttap_state.state) {
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_VOLU);
-            break;
         default:
             break;
     }
@@ -248,11 +224,8 @@ void youtube_left_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code(KC_J);
             break;
-        case TD_DOUBLE_TAP:
-            layer_move(_UGPRO);
-            break;
         case TD_DOUBLE_HOLD:
-            tap_code16(KC_LABK);
+            layer_move(_UGPRO);
             break;
         default:
             break;
@@ -280,11 +253,8 @@ void youtube_right_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             tap_code(KC_J);
             break;
-        case TD_DOUBLE_TAP:
-            layer_move(_SPOTIFY);
-            break;
         case TD_DOUBLE_HOLD:
-            tap_code16(KC_RABK);
+            layer_move(_SPOTIFY);
             break;
         default:
             break;
@@ -310,13 +280,13 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // RGBLIGHT LAYERS
 const rgblight_segment_t PROGMEM spotify_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 85, 255, 125}
+    {0, 1, 85, 255, 100}
 );
 const rgblight_segment_t PROGMEM ugpro_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 43, 255, 125}
+    {0, 1, 43, 255, 100}
 );
 const rgblight_segment_t PROGMEM youtube_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 0, 255, 125}
+    {0, 1, 0, 255, 100}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -356,7 +326,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
-            // power on the neopixel
             rgblight_blink_layer(get_highest_layer(layer_state), 30000);
         }
     }
