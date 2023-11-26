@@ -112,8 +112,7 @@ void spotify_left_finished(tap_dance_state_t *state, void *user_data) {
             register_code(KC_VOLD);
             break;
         case TD_TRIPLE_HOLD:
-            tap_code16(QK_BOOT);
-            tap_code16(QK_BOOT);
+            reset_keyboard();
             break;
         default:
             break;
@@ -310,15 +309,14 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 // RGBLIGHT LAYERS
-
 const rgblight_segment_t PROGMEM spotify_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_GREEN}
+    {0, 1, 85, 255, 125}
 );
 const rgblight_segment_t PROGMEM ugpro_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_YELLOW}
+    {0, 1, 43, 255, 125}
 );
 const rgblight_segment_t PROGMEM youtube_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_RED}
+    {0, 1, 0, 255, 125}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -327,18 +325,22 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     youtube_layer
 );
 
+
 void keyboard_pre_init_kb(void) {
-    // power on the 0
+    // address the neopixel
     setPinOutput(GP11);
     writePinHigh(GP11);
+
     // turn off the anode RGB LED
     setPinInputHigh(GP16);
     setPinInputHigh(GP17);
     setPinInputHigh(GP25);
 }
 
+
 void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
+    rgblight_blink_layer(get_highest_layer(layer_state), 30000);
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -350,3 +352,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _YOUTUBE));
     return state;
 }
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            // power on the neopixel
+            rgblight_blink_layer(get_highest_layer(layer_state), 30000);
+        }
+    }
