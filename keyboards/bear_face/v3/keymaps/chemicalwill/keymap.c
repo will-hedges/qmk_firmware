@@ -1,5 +1,5 @@
 /*
-Copyright 2024 chemicalwill <https://github.com/will-hedges>
+Copyright 2020 chemicalwill <https://github.com/chemicalwill>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ enum {
 #define WEBTABR LCTL(KC_PGDN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWER] = LAYOUT(
+    [_QWER] = LAYOUT_83_ansi(
         KC_ESC,   TD(MUTE_F1), TD(VOLD_F2), TD(VOLU_F3), TD(MPRV_F4), TD(MPLY_F5), TD(MNXT_F6), KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_DEL,
         KC_GRV,   KC_1,        KC_2,        KC_3,        KC_4,        KC_5,        KC_6,        KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
         KC_TAB,   KC_Q,        KC_W,        KC_E,        KC_R,        KC_T,        KC_Y,        KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC, KC_BSLS, KC_END,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LGUI,     KC_LALT,                               KC_SPC,                                     KC_RALT, MO(_FN1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_FN1] = LAYOUT(
+    [_FN1] = LAYOUT_83_ansi(
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, _______,
         _______, _______, _______, _______, QK_BOOT, _______, _______, _______, VSCHLUP, _______, _______, _______, _______, _______, _______,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 /*
-    [_BLANK] = LAYOUT(
+    [_BLANK] = LAYOUT_83_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
