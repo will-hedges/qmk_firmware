@@ -1,19 +1,5 @@
-/*
-Copyright 2020 chemicalwill <https://github.com/chemicalwill>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2024 will-hedges */
+/* SPDX-License-Identifier: GPL-2.0-or-later */
 
 #include QMK_KEYBOARD_H
 
@@ -33,10 +19,7 @@ enum {
 };
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
-#define VSCHLUP LSFT(KC_UP)
-#define VSCHLDN LSFT(KC_DOWN)
-#define WEBTABL LCTL(KC_PGUP)
-#define WEBTABR LCTL(KC_PGDN)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWER] = LAYOUT_83_ansi(
@@ -49,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT_83_ansi(
-        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, KC_INS,
+        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, _______,
-        _______, _______, _______, _______, QK_BOOT, _______, _______, _______, VSCHLUP, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, WEBTABL, VSCHLDN, WEBTABR, _______, _______,          _______, _______,
+        _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______, KC_APP,  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),

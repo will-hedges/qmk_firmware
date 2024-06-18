@@ -13,3 +13,6 @@ This layout replaces the stock layout on the Vortex Race 3.
     * 'Reset' will put the keyboard into DFU mode
     * 'APP' sends 'KC_APP'
     * Base layer toggles for QWERTY, COLEMAK, and DVORAK layouts (will persist after reboot)
+
+- New things in v3:
+    * v3.1c PCB is compatible with both rev1 (Micro-USB) and rev2 (USB-C) stock cases
