@@ -1,0 +1,26 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "cSpell.ignoreWords": [
+        "PROGMEM",
+        "keymaps"
+    ],
+    "cSpell.words": [
+        "BSLS",
+        "BSPC",
+        "keymaps",
+        "LALT",
+        "LBRC",
+        "LCTL",
+        "LGUI",
+        "LSFT",
+        "PGDN",
+        "PGUP",
+        "RALT",
+        "RBRC",
+        "RCTL",
+        "RGHT",
+        "RSFT",
+        "SCLN",
+        "SLSH"
+    ]
+}
