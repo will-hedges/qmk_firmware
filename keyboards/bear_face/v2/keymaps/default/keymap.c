@@ -12,12 +12,9 @@ enum layers {
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
 
-//custom keycode enums
-enum custom_keycodes {
-    BASE_QWER = QK_KB_0,
-    BASE_COLE,
-    BASE_DVOR
-};
+#define BASE_QWER PDF(_QWER)
+#define BASE_COLE PDF(_COLE)
+#define BASE_DVOR PDF(_DVOR)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWER] = LAYOUT_83_ansi(
@@ -66,55 +63,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),
 */
-};
-
-
-// Caps Lock LED indicator
-void keyboard_pre_init_kb(void) {
-    //Sets LED pin as output
-    gpio_set_pin_output(F7);
-
-    keyboard_pre_init_user();
-};
-
-bool led_update_kb(led_t led_state) {
-    // Caps Lock LED indicator toggling code here
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(F7, led_state.caps_lock);
-    }
-    return res;
-};
-
-// macros to allow the user to set whatever default layer they want, even after reboot
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case BASE_QWER:
-            if (record->event.pressed) {
-            // when keycode BASE_QWER is pressed
-                set_single_persistent_default_layer(_QWER);
-            } else {
-            // when keycode BASE_QWER is released
-            }
-            break;
-
-        case BASE_COLE:
-            if (record->event.pressed) {
-            // when keycode BASE_COLE is pressed
-                set_single_persistent_default_layer(_COLE);
-            } else {
-            // when keycode BASE_COLE is released
-            }
-            break;
-
-        case BASE_DVOR:
-            if (record->event.pressed) {
-            // when keycode BASE_DVOR is pressed
-                set_single_persistent_default_layer(_DVOR);
-            } else {
-            // when keycode BASE_DVOR is released
-            }
-            break;
-    }
-    return true;
 };
